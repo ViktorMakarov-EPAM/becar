@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect, useCallback, React } from 'react'
+import { Route, Routes, Link } from 'react-router-dom'
 
-function App() {
+import { ConverterPage } from './ConverterPage'
+import { CourseTablePage } from './CourseTablePage'
+import styles from './styles.module.css'
+import './index.css'
+
+function App () {
+  const [listData, setListData] = useState([])
+
+  const getData = useCallback(async () => {
+    const response = await fetch('https://api.currencyapi.com/v3/latest?apikey=REeeB8j0LkOJwD9zVzeRbo9RRwfLoEQFCA3GOPvD')
+    const { data } = await response.json()
+    const result = Object.values(data).slice(0, 10)
+    setListData(result)
+  }, [])
+
+  useEffect(() => { getData() }, [getData])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Конвертер валют</h1>
+        <nav className={styles.navigation}>
+          <Link to="/">Конвертер</Link>
+          <Link to="/table">Таблица</Link>
+        </nav>
       </header>
-    </div>
-  );
+      <main className={styles.main}>
+      <Routes>
+        <Route path="/" element={<ConverterPage listData={listData} />} />
+        <Route path="/table" element={<CourseTablePage listData={listData} />} />
+      </Routes>
+      </main>
+     </div>
+  )
 }
 
-export default App;
+export default App

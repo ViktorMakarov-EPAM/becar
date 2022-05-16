@@ -1,0 +1,36 @@
+.converter {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 170px;
+}
+
+.input {
+  border-radius: 3px;
+  vertical-align: middle;
+  height: 24px;
+  font-size: 14px;
+  padding-left: 7px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  width: 100px;
+  overflow: hidden;
+  font-family: Arial;
+}
+
+.invalid {
+    border-color: red;
+}
+
+.result {
+  line-height: 24px;
+  vertical-align: middle;
+}
