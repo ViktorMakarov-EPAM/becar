@@ -4,16 +4,16 @@ import clsx from 'clsx'
 import PropTypes from 'prop-types'
 
 function ConverterPage (props) {
-  const { listData = [] } = props
+  const { listData } = props
   const [inputCurrency, setInputCurrency] = useState('0')
-  const [k, setK] = useState(1)
-  const [i, setI] = useState(1)
+  const [inputDollarСurrency, setInputDollarСurrency] = useState(1)
+  const [outputDollarСurrency, setOutputDollarСurrency] = useState(1)
   const [isValid, setIsValid] = useState(true)
 
   useEffect(() => {
-    if (listData) {
-      setK(listData[0]?.value)
-      setI(listData[0]?.value)
+    if (listData.length > 0) {
+      setInputDollarСurrency(listData[0]?.value)
+      setOutputDollarСurrency(listData[0]?.value)
     }
   }, listData)
 
@@ -25,18 +25,18 @@ function ConverterPage (props) {
   }
 
   const changeFromCurrenceHandler = (e) => {
-    setI(e.target.value)
+    setOutputDollarСurrency(e.target.value)
   }
 
   const changeToCurrenceHandler = (e) => {
-    setK(e.target.value)
+    setInputDollarСurrency(e.target.value)
   }
 
   const result = useMemo(() => {
     if (!isValid) return ''
     const stringWithoutComma = (inputCurrency.replace(/,/, '.'))
-    return parseFloat((stringWithoutComma * k / i).toFixed(4))
-  }, [k, i, inputCurrency, isValid])
+    return parseFloat((stringWithoutComma * inputDollarСurrency / outputDollarСurrency).toFixed(4))
+  }, [inputDollarСurrency, outputDollarСurrency, inputCurrency, isValid])
 
   return (
       <div className={styles.converter}>

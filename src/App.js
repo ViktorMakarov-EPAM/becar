@@ -16,6 +16,8 @@ function App () {
     setListData(result)
   }, [])
 
+  console.log(listData)
+
   useEffect(() => { getData() }, [getData])
 
   return (
